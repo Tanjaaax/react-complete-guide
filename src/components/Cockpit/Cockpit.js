@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
+  const toggleBtnRef = useRef(null);
+
   // ComponentDidMount & ComponentDidUpdate
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
     // Http request...
-    setTimeout(() => {
-      alert('Saved date to cloud!');
-    }, 1000);
+    // setTimeout(() => {
+    //   alert('Saved date to cloud!');
+    // }, 1000);
+    toggleBtnRef.current.click();
     return () => {
       console.log('[Cockpit.js] cleanup work in useEffect');
     };
@@ -22,6 +25,7 @@ const cockpit = (props) => {
   });
 
   // useEffect can be called multiple times.
+  // useEffect runs after every rendercycle.
   // useEffect()
 
   const assignedClasses = [];
@@ -32,7 +36,7 @@ const cockpit = (props) => {
   }
 
   if (props.personsLength <= 2) {
-    assignedClasses.push(classes.red); 
+    assignedClasses.push(classes.red);
   }
   if (props.personsLength <= 1){
     assignedClasses.push(classes.bold);
@@ -42,9 +46,11 @@ const cockpit = (props) => {
     <div className={classes.Cockpit}>
       <h1>Hi, I'm a React App</h1>
       <p className={assignedClasses.join(' ')}>This is really working!</p>
-      <button 
+      <button
+        ref={toggleBtnRef}
         className={btnClass}
-        onClick={props.clicked}>Toggle Persons</button>
+        onClick={props.clicked}>Toggle Persons
+      </button>
     </div>
   );
 }
