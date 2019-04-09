@@ -57,12 +57,10 @@ class App extends Component {
     const persons = [...this.state.persons];
     persons[personIndex] = person;
 
-    // prevState will make sure it is actually the previous state.
-    this.setState((prevState, props) => {
-      return {
-        persons: persons,
-        changeCounter: prevState.changeCounter + 1
-      };
+    // Not guaranteed to be the current state, because setState SCHEDULES it for a state change.
+    this.setState({
+      persons: persons,
+      changeCounter: this.state.changeCounter + 1
     });
   }
 
